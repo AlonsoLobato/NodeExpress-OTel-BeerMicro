@@ -15,10 +15,11 @@ const init = (serviceName) => {
       [SemanticResourceAttributes.SERVICE_NAME]: serviceName
     })
   });
+
   const traceExporter = new OTLPTraceExporter({});
   provider.addSpanProcessor(new SimpleSpanProcessor(traceExporter));
-
   provider.register();
+
   registerInstrumentations({
     instrumentations: [
       new HttpInstrumentation(),
@@ -27,6 +28,7 @@ const init = (serviceName) => {
       new MongooseInstrumentation(),
     ]
   });
+  
   const tracer = provider.getTracer(serviceName);
   return { tracer }
 }

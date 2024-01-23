@@ -34,11 +34,11 @@ Before running the application, make sure you have the following installed:
 4. MongoDB database instance (or MongoDB Atlas cluster). Create a `.env` file and add a `MONGODB_URI` variable that references your MongoDB database connection string, including your databse username and password.
 
 ### Installation
-1. Clone the repository with `git clone https://github.com/AlonsoLobato/beer_microservice_observability`
-2. Open three separate terminal sessions and `cd` into each service directory (`bar`, `brewery` and `inventory`)
-3. Install the dependencies in each service with `npm install`
-4. Run each service with `npm run dev` to run in dev mode (uses nodemon) or `npm start` to run in production mode
-5. Deploy a local instance of RabbitMQ, using a Docker image, with the command `docker run --rm -p 5672:5672 -p 15672:15672 -d --name rabbit rabbitmq:3-management`. 
+1. Deploy a local instance of RabbitMQ, using a Docker image, with the command `docker run --rm -p 5672:5672 -p 15672:15672 -d --name rabbit rabbitmq:3-management`. Be aware that this operation may take a few seconds and so the services using this message broker may not run correctly until RabbitMQ is fully deployed. 
+2. Clone the repository with `git clone https://github.com/AlonsoLobato/beer_microservice_observability`
+3. Open three separate terminal sessions and `cd` into each service directory (`bar`, `brewery` and `inventory`)
+4. Install the dependencies in each service with `npm install`
+5. Run each service with `npm run dev` to run in dev mode (uses nodemon) or `npm start` to run in production mode
   *[Requires Docker desktop installed](https://docs.docker.com/desktop/install/mac-install/)
 6. Run a Jaeger tracing tool instance; can be run as Docker image, with the following command:
   ```
