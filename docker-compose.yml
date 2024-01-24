@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+        - "5672:5672"
+        - "15672:15672" 
+
+  jaeger:
+      image: jaegertracing/all-in-one:1.22.0
+      container_name: jaeger
+      ports:
+        - "16686:16686"
+        - "14268"
+        - "14250"
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.21.0
+    container_name: otel-collector
+    command: ["--config=/etc/collector-config.yml"]
+    volumes:
+      - ./collector-config.yml:/etc/collector-config.yml
+    ports:
+      - "55681:55681"       # OTLP HTML/JSON receiver.
+      - "1888:1888"         # pprof extension
+      - "8888:8888"         # Prometheus metrics exposed by the collector
+      - "8889:8889"         # Prometheus exporter metrics
+      - "13133:13133"       # health_check extension
+      - "4317:4317"         # OTLP gRPC receiver
+      - "4318:4318"         # OTLP HTTP receiver
+      - "55670:55679"       # zpages extension
+    depends_on:
+      - jaeger
