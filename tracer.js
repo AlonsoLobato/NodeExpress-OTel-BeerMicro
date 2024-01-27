@@ -8,6 +8,11 @@ const { ExpressInstrumentation } = require('@opentelemetry/instrumentation-expre
 const { HttpInstrumentation } = require('@opentelemetry/instrumentation-http');               // Auto instrum for http and https modules
 const { AmqplibInstrumentation } = require('@opentelemetry/instrumentation-amqplib');         // Auto instrum for RabbitMQ module
 const { MongooseInstrumentation } = require('@opentelemetry/instrumentation-mongoose');       // Auto instrum for Mongoose module
+const { diag, DiagConsoleLogger, DiagLogLevel } = require('@opentelemetry/api');
+
+// Troubleshooting functionality: enables debug logging. 
+// Printing to the console is not recommended for production but only for debugging purposes.
+diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
 
 const init = (serviceName) => {
   const provider = new NodeTracerProvider({
